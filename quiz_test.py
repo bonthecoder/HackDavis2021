@@ -33,7 +33,7 @@ class Student:
     # this is the initializer for classes
     # all class methods have the first argument as "self"
     # it's sort of like the "this" word in C++, except not a pointer
-    __init__(self, ID, NAME):
+    def __init__(self, ID, NAME):
         # empty dictionary of student interactions
         # each student that "self" interacts with will be put in the dictionary
         # student_id : time_interacted
