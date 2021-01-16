@@ -15,3 +15,6 @@ Get the most recent version here: https://www.python.org/downloads/
 
 Install Canvas API:
 ```pip install canvasapi```
+
+Run main.py script by typing
+```python3 main.py```
