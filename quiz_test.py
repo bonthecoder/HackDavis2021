@@ -93,6 +93,7 @@ def getAPIKEY():
                 print(default,"was empty...")
                 print("Let's try this again...")
                 return getAPIKEY()
+    return key
 
             
 def getCanvas(url, key):
