@@ -12,6 +12,8 @@ print("User: " + user.name)
 
 courses = user.get_courses(enrollment_state="active")
 
+print("hello")
+
 # Need a way to only get the courses for the current quarter 
 # Parse string for quarter and year?
 print(user.name + "'s active courses:")
