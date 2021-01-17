@@ -137,7 +137,7 @@ def getCurrentAssignments(data):
   print()
   return classAssignments
 
-# This function converts a datetime object's timezone
+# This fucntion converts a datetime object's timezone
 # It came from the internet
 def utc_to_local(utc_dt):
   return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
@@ -153,19 +153,20 @@ def getAssignmentList(courseAssignments):
       # aware >= naive
       try:
         if assignment.due_at_date >= now:
-          assignmentList.append(assignment)
+          # we make objects from our own Assignment class
+          assignmentList.append(Assignment(assignment.name, assignment.due_at_date, assignment.course_id))
       except:
         # naughty assignments don't get added
         pass
   print("There are a total of", len(assignmentList), "assignments. Good luck.")
   return assignmentList
 
-# These functions are used by the sorting function
+# This function is used by the sorting function
 def getElementDueDate(elem):
-  return elem.due_at_date
+  return elem.date
 
 def getElementCourseID(elem):
-  return elem.course_id
+  return elem.courseID
 
 def getElementName(elem):
   return elem.name
@@ -197,9 +198,24 @@ def getSorted(assignments):
     assignments.sort(key=getElementName)
     return assignments
   else:
-    print("Dumbass choice!")
+    print("Dumbass choice! Now the assignments aren't sorted at all")
     return assignments
 
+def findAssignmentByName(assignments, find):
+  # why do we need to search for an assignment,
+  # if all the assignments and due dates are posted?
+  found = []
+  for assignment in assignments:
+    if assignment.name == find:
+      found.append(assignment)
+  if len(found) == 0:
+    print("No assignments were found by that name. Returning None")
+  elif len(found) == 1:
+    print("1 assignment was found with that name. Returning it")
+  else:
+    print(len(found), "assignments were found with that name. Returning them")
+  return found
+  
 # main
 if __name__ == '__main__':
   
@@ -210,9 +226,13 @@ if __name__ == '__main__':
   courseAssignments = getCurrentAssignments(data)
   
   # make a list of our Assignment objects
+  # From this point onwards, we are ONLY DEALING WITH **OUR** ASSIGNMENT CLASS
   assList = getAssignmentList( courseAssignments )
   
   # we can group them in colors based on assignment.assignment_group_id
   # or even better, color them based on course id
   
   printAssignments(getSorted(assList))
+  
+  
+
