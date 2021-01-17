@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+
+       <!-- Resources: Chrome Extension API https://developer.chrome.com/docs/extensions/reference/ -->
+    </head>
+    <body>
+    
+        <!---- Class selection format option 1 -->
+        <!---
+            <div id="heading">
+            <div class="nav">
+                <div class="dropdown">
+                    <button class="dropbtn">Classes
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="myDropdown"> 
+                        <a href="#Class1">Class1</a>
+                        <a href="#Class2">Class2</a>
+                        <a href="#Class3">Class3</a>
+                        <a href="#Class4">Class4</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        -->
+        
+        <!---- Class selection format option 2 -->
+        <div id="heading">
+            <div class="nav">
+                <div class="dropdown">
+                    <button class="dropbtn">Classes
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="myDropdown"> 
+                        <select name = "courses" id = "classes">
+                            <option value = "c0"><a href="#ClassAll">All Classes</a></option>
+                            <option value = "c1"><a href="#Class1">Class 1</a></option>
+                            <option value = "c2"><a href="#Class2">Class 2</a></option>
+                            <option value = "c3"><a href="#Class3">Class 3</a></option>
+                            <option value = "c4"><a href="#Class4">Class 4</a></option>
+
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+      <div style = "position: absolute; right:8px; top:2px;">
+        <div id = "heading">
+            <div class = "nav">
+                    <div class="dropdown">
+                        <button class="dropbtn">Alert Options
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                        
+                        <div class="dropdown-content" id="myDropdown"> 
+                            <select name="reminds" id="times">
+                                <option value="ten">10 min before</option>
+                                <option value="thirty">30 min before</option>
+                                <option value="hour">1 hour before</option>
+                                <option value="twoh">2 hours before</option>
+                                <option value="oneday">1 day before</option>
+                                <option value="twoday">2 days before</option>
+                            </select>
+                        </div>
+                    </div>  
+                </div> 
+            </div>
+        </div>
+
+        <div id="myDIV" class="header">
+            <h2 style="margin:3px">Canvas Assignments</h2>
+            <input type="text" id="myInput" placeholder="">
+            <span onclick="newElement()" class="addBtn">Find</span>
+          </div>
+          
+          <nav>
+            <ul>
+                <li>Assignment 1</li>
+                <li>Assignment 2</li>
+                <li>Assignment 3</li>
+                <li>Assignment 4</li>
+                <li>Assignment 5</li>
+                <li>Assignment 6</li>
+                <li>Assignment 7</li>
+                <li>Assignment 8</li>
+                <li>Assignment 9</li>
+                <li>Assignment 10</li>
+            </ul>
+          </nav>
+    </body> 
+    <script src="script.js"></script>
+
+</html>
