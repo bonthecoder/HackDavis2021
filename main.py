@@ -6,6 +6,7 @@ import copy
 # course.calendar["ics"]
 #-----------------------
 
+<<<<<<< HEAD
 class Assignment:
   
   def __init__(self, name, date, courseID):
@@ -14,6 +15,8 @@ class Assignment:
     self.courseID = courseID
 
 
+=======
+>>>>>>> d6453f58c9be73a3191c5c47b69708cf415c4067
 # This function opens a file specified by the user (or the default file)
 # It reads the contents of the file and stores them into a dictionary in the following order:
 # URL
