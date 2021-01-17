@@ -137,7 +137,7 @@ def getCurrentAssignments(data):
   print()
   return classAssignments
 
-# This fucntion converts a datetime object's timezone
+# This function converts a datetime object's timezone
 # It came from the internet
 def utc_to_local(utc_dt):
   return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
@@ -160,7 +160,7 @@ def getAssignmentList(courseAssignments):
   print("There are a total of", len(assignmentList), "assignments. Good luck.")
   return assignmentList
 
-# This function is used by the sorting function
+# These functions are used by the sorting function
 def getElementDueDate(elem):
   return elem.due_at_date
 
@@ -216,6 +216,3 @@ if __name__ == '__main__':
   # or even better, color them based on course id
   
   printAssignments(getSorted(assList))
-  
-  
-

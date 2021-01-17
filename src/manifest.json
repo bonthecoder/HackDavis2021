@@ -1,0 +1,15 @@
+{
+  "name": "Canvas Reminders",
+  "description": "This extension parses active Canvas courses for assignment due dates and gives reminders at user-specified frequency.",
+  "version": "1.0",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "window.html"
+  },
+  "manifest_version": 2
+}

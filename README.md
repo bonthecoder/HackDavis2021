@@ -24,3 +24,9 @@ Install Canvas API:
 
 Run main.py script by typing
 ```python3 main.py```
+
+## To test the extension
+Open chrom and go to chrome://extensions/
+At the top right, enable Developer Mode
+Drag src/ file to the screen
+Your extension is uploaded! View it under the list at the top right.
