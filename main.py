@@ -1,14 +1,10 @@
 from canvasapi import Canvas
 from datetime import datetime, timezone
 import copy
-<<<<<<< HEAD
-=======
 
 #-----------------------
 # course.calendar["ics"]
 #-----------------------
-
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
 
 # This function opens a file specified by the user (or the default file)
 # It reads the contents of the file and stores them into a dictionary in the following order:
@@ -92,29 +88,20 @@ def getCurrentCourses(data):
   print(data["USER"].name + "'s active courses:")
   for course in courses:
       if (curYear in course.course_code) and (curQuarter in course.course_code):
-<<<<<<< HEAD
-          # this is what we had:
-          # curCourses.append(course.course_code)
-          # but I think we should put in the course itself:
-=======
           # print(course.calendar["ics"])
           # this is what we had
           #curCourses.append(course.course_code)
           # but I think we should put in the course itself
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
           curCourses.append(course)
           print(course.name)
 
   data["COURSES"] = curCourses
   return data
 
-<<<<<<< HEAD
-=======
 # This function takes a dictionary of data (which includes COURSES)
 # and makes a list of assignments for each course in COURSES
 # Key is the course, and value is a list of Assignment objects
 # Returns the dictionary of course : assignmenents
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
 def getCurrentAssignments(data):
   # a dictionary where we link a class ID to its list of assignments
   # class1 : [assignment1, assignment2, etc]
@@ -125,11 +112,7 @@ def getCurrentAssignments(data):
     print("--------------------------\nListing assignments for", course.name)
     for ass in todo:
       try:
-<<<<<<< HEAD
-        print(ass.name, "is due at", utc_to_local(ass.due_at_date))
-=======
         #print(ass.name, "is due at", utc_to_local(ass.due_at_date))
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
         # for now, just appending the the assignment to the list of assignments
         # WE SHOULD CONSIDER CHECKING THE DUE DATE OF THE ASSIGNMENT BEFORE ADDING IT THOUGH
         assignments.append(ass)
@@ -139,10 +122,6 @@ def getCurrentAssignments(data):
 
     # now make the dictionary entry
     classAssignments[course] = copy.deepcopy(assignments) # doing the copy because I'm nervous about how Python references work...
-<<<<<<< HEAD
-  
-  return classAssignments
-=======
   #print("\nHere's the guts of an Assignment object:")
   #print( (data["COURSES"][0].get_assignments())[0].__dict__ )
   
@@ -178,7 +157,6 @@ def getAssignmentList(courseAssignments):
 #print("User: " + user.name)
 
 #courses = user.get_courses(enrollment_state="active")
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
 
 # Need a way to only get the courses for the current quarter
 # Parse string for quarter and year?
@@ -189,9 +167,6 @@ if __name__ == '__main__':
   data = getCanvasAndUser(data)
   data = getCurrentCourses(data)
   
-<<<<<<< HEAD
-  getCurrentAssignments(data)
-=======
   courseAssignments = getCurrentAssignments(data)
   
   # maybe we should just slam all the assignments into one bigass list
@@ -204,4 +179,3 @@ if __name__ == '__main__':
   
   
 
->>>>>>> b6bf09641780f59c322db7f4ae9f5a8c1cca1728
