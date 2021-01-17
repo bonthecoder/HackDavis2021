@@ -1,10 +1,18 @@
 from canvasapi import Canvas
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import copy
+from flask import Flask
+from flask import request
+from flask import jsonify
+from flask_cors import CORS
 
 #-----------------------
 # course.calendar["ics"]
 #-----------------------
+app = Flask(__name__)
+CORS(app)
+
+todoList = []
 
 class Assignment:
   
@@ -12,6 +20,9 @@ class Assignment:
     self.name = name
     self.date = date
     self.courseID = courseID
+    
+  def makePretty(self, date):
+    return date.replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%m/%d/%Y, %H:%M:%S")
 
 
 # This function opens a file specified by the user (or the default file)
@@ -183,7 +194,7 @@ def printAssignments(assignments):
     while ii < maxlength:
       print(" ",end='')
       ii += 1
-    print(' ', assignment.due_at_date, " (class ID = ", assignment.course_id,")", sep='')
+    print(' ', assignment.makePretty(assignment.date), " (class ID = ", assignment.courseID,")", sep='')
   return
 
 def getSorted(assignments):
@@ -216,9 +227,35 @@ def findAssignmentByName(assignments, find):
     print(len(found), "assignments were found with that name. Returning them")
   return found
   
+@app.route('/app')
+def returnAssignments():
+  global todoList
+  now = datetime.now().astimezone(tz=None)
+  time = request.args.get('input1')
+  if time == "1 Day":
+    cutoff = now + timedelta(days=1)
+  elif time == "2 Days":
+    cutoff = now + timedelta(days=2)
+  elif time == "1 Week":
+    cutoff = now + timedelta(days=7)
+  else:
+    print("get fucked")
+
+  ret = []
+  for todo in todoList:
+    if todo.date < cutoff:
+      ret += todo
+    else:
+      break
+      
+  printAssignments(ret)
+  return "I did some shit"
+
+def haveAccess():
+  printAssignments(todoList)
 # main
 if __name__ == '__main__':
-  
+
   data = readDataFromFile()
   data = getCanvasAndUser(data)
   data = getCurrentCourses(data)
@@ -231,8 +268,11 @@ if __name__ == '__main__':
   
   # we can group them in colors based on assignment.assignment_group_id
   # or even better, color them based on course id
+  assList.sort(key=getElementDueDate)
+  todoList = assList
+  #todoList = (getSorted(assList))
+  haveAccess()
   
-  printAssignments(getSorted(assList))
-  
+  #printAssignments(assList)
   
 
