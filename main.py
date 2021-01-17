@@ -14,7 +14,7 @@ import datetime
 # Returns the dictionary of file contents
 def readDataFromFile():
   defaultFileName = "reminders_passwords.txt"
-  print("Default file is", defaultFileName)
+  print("\nDefault file is", defaultFileName)
   userFile = input("Press enter to read data from default file, or paste your own filename: ")
   if userFile != "":
     # the user entered a file, so we're temporarily changing the default filename
@@ -29,7 +29,7 @@ def readDataFromFile():
   data["URL"] = file[0].strip()
   data["KEY"] = file[1].strip()
   if len(file) >= 2:
-    data["OTHER"] = files[2:]
+    data["OTHER"] = file[2:]
   return data
 
 # This function takes a dictionary of data (which includes a URL and a KEY)
@@ -41,29 +41,35 @@ def getCanvasAndUser(data):
   try:
     canvas = Canvas(data["URL"], data["KEY"])
   except:
-    print("A canvas with that data was not found...\nThe program will now terminate")
+    print("\nA canvas with that data was not found...\nThe program will now terminate")
     kill
   
-  print("Got canvas:",canvas)
+  print("\nGot canvas:",canvas)
   data["CANVAS"] = canvas
   current = canvas.get_current_user()
   print("Welcome,", current.name)
   data["USER"] = current
   return data
 
-def getCurrentCourses(data)
+def getCurrentCourses(data):
   date = datetime.date.today()
-  print("Current date: '", date, "'", sep='')
+  print("\nCurrent date: '", date, "'", sep='')
   # now have access to:
   # date.year
   # date.month
   # date.day
 
-  # FQ, WQ, SQ, SS
-  # Determine which    quarter we're in
+  # FQ, WQ, SQ, SS1, SS2
+  
+  # FQ: September through December
+  # WQ: January through March
+    # SQ:
+  # Determine which quarter we're in
   curYear = str(date.year)
   curQuarter = "WQ"
   curCourses = []
+  
+  courses = data["USER"].get_courses(enrollment_state="active")
   
   for course in courses:
       if (curYear in course.course_code) and (curQuarter in course.course_code):
@@ -97,5 +103,6 @@ if __name__ == '__main__':
   data = readDataFromFile()
   data = getCanvasAndUser(data)
   data = getCurrentCourses(data)
+
 
 
