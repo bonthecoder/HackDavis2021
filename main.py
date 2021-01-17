@@ -6,6 +6,13 @@ import copy
 # course.calendar["ics"]
 #-----------------------
 
+class Assignment:
+  
+  def __init__(self, name, date, courseID):
+    self.name = name
+    self.date = date
+    self.courseID = courseID
+
 
 # This function opens a file specified by the user (or the default file)
 # It reads the contents of the file and stores them into a dictionary in the following order:
@@ -107,10 +114,12 @@ def getCurrentAssignments(data):
   # a dictionary where we link a class ID to its list of assignments
   # class1 : [assignment1, assignment2, etc]
   classAssignments = {}
+  print("\nLoading assignments...",end='')
   for course in data["COURSES"]:
+    print(".",end='')
     todo = course.get_assignments()
     assignments = []
-    print("--------------------------\nListing assignments for", course.name)
+    #print("--------------------------\nListing assignments for", course.name)
     for ass in todo:
       try:
         #print(ass.name, "is due at", utc_to_local(ass.due_at_date))
@@ -125,7 +134,7 @@ def getCurrentAssignments(data):
     classAssignments[course] = copy.deepcopy(assignments) # doing the copy because I'm nervous about how Python references work...
   #print("\nHere's the guts of an Assignment object:")
   #print( (data["COURSES"][0].get_assignments())[0].__dict__ )
-  
+  print()
   return classAssignments
 
 # This fucntion converts a datetime object's timezone
@@ -137,31 +146,61 @@ def utc_to_local(utc_dt):
 # It goes through each course and adds each assignment to a big list
 # Returns a list of Assignment objects
 def getAssignmentList(courseAssignments):
+  now = datetime.now().astimezone(tz=None)
   assignmentList = []
   for course in courseAssignments.keys():
     for assignment in courseAssignments[course]:
-      assignmentList.append(assignment)
+      # aware >= naive
+      try:
+        if assignment.due_at_date >= now:
+          assignmentList.append(assignment)
+      except:
+        # naughty assignments don't get added
+        pass
   print("There are a total of", len(assignmentList), "assignments. Good luck.")
   return assignmentList
-      
 
+# This function is used by the sorting function
+def getElementDueDate(elem):
+  return elem.due_at_date
 
-#API_URL = "https://canvas.ucdavis.edu/"
-# need this to work with unique users, not just me
-# Bwahaha now that I have your key I can turn in all your assignments for you  >:)
-#API_KEY = "3438~S5MKJLaQYYFCVtVHFHQnxmSwi1hhoyMx7LfOl9Ih0ecClOUrQJTun5wZ0dzzFxqe"
+def getElementCourseID(elem):
+  return elem.course_id
 
-#canvas = Canvas(API_URL, API_KEY)
+def getElementName(elem):
+  return elem.name
 
-#user = canvas.get_current_user()
+# This function prints the assignments as pretty as possible :)
+def printAssignments(assignments):
+  maxlength = 0
+  for assignment in assignments:
+    if len(assignment.name) > maxlength:
+      maxlength = len(assignment.name)
+  for assignment in assignments:
+    print(assignment.name,end='')
+    ii = len(assignment.name)
+    while ii < maxlength:
+      print(" ",end='')
+      ii += 1
+    print(' ', assignment.due_at_date, " (class ID = ", assignment.course_id,")", sep='')
+  return
 
-#print("User: " + user.name)
+def getSorted(assignments):
+  choice = int(input("Make a selection:\nSorted by due date  (1)\nSorted by course id (2)\nSorted by name      (3)\nChoice: "))
+  if choice == 1:
+    assignments.sort(key=getElementDueDate)
+    return assignments
+  elif choice == 2:
+    assignments.sort(key=getElementCourseID)
+    return assignments
+  elif choice == 3:
+    assignments.sort(key=getElementName)
+    return assignments
+  else:
+    print("Dumbass choice!")
+    return assignments
 
-#courses = user.get_courses(enrollment_state="active")
-
-# Need a way to only get the courses for the current quarter
-# Parse string for quarter and year?
-
+# main
 if __name__ == '__main__':
   
   data = readDataFromFile()
@@ -170,13 +209,13 @@ if __name__ == '__main__':
   
   courseAssignments = getCurrentAssignments(data)
   
-  # maybe we should just slam all the assignments into one bigass list
+  # make a list of our Assignment objects
   assList = getAssignmentList( courseAssignments )
   
   # we can group them in colors based on assignment.assignment_group_id
   # or even better, color them based on course id
-  [print(ass.name) for ass in assList]
   
+  printAssignments(getSorted(assList))
   
   
 
