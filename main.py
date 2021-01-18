@@ -5,6 +5,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask_cors import CORS
+import json
 
 #-----------------------
 # course.calendar["ics"]
@@ -23,6 +24,13 @@ class Assignment:
     
   def makePretty(self, date):
     return date.replace(tzinfo=timezone.utc).astimezone(tz=None).strftime("%m/%d/%Y, %H:%M:%S")
+    
+  def getDictionary(self):
+    dict = {}
+    dict["Name"] = self.name
+    dict["Date"] = self.makePretty(self.date)
+    dict["courseName"] = self.courseID
+    return dict
 
 
 # This function opens a file specified by the user (or the default file)
@@ -165,7 +173,7 @@ def getAssignmentList(courseAssignments):
       try:
         if assignment.due_at_date >= now:
           # we make objects from our own Assignment class
-          assignmentList.append(Assignment(assignment.name, assignment.due_at_date, assignment.course_id))
+          assignmentList.append(Assignment(assignment.name, assignment.due_at_date, course.name))
       except:
         # naughty assignments don't get added
         pass
@@ -229,9 +237,12 @@ def findAssignmentByName(assignments, find):
   
 @app.route('/app')
 def returnAssignments():
+  print("get fucked, in the future")
+  main()
   global todoList
   now = datetime.now().astimezone(tz=None)
-  time = request.args.get('input1')
+  #time = request.args.get('input1')
+  time = "1 Week"
   if time == "1 Day":
     cutoff = now + timedelta(days=1)
   elif time == "2 Days":
@@ -242,20 +253,31 @@ def returnAssignments():
     print("get fucked")
 
   ret = []
+  # we might just want to make ret into a dictionary instead
   for todo in todoList:
     if todo.date < cutoff:
-      ret += todo
-    else:
-      break
+      ret.append(todo)
       
+  ret_dict = {}
   printAssignments(ret)
-  return "I did some shit"
+  for ii in range(len(ret)):
+    ret_dict[ii] = ret[ii].getDictionary()
+
+  metadata = {}
+  metadata["size"] = len(ret)
+  metadata["time"] = time
+  metadata["cutoff"] = cutoff.strftime("%m/%d/%Y, %H:%M:%S")
+  metadata["type"] = str(type(todoList[0].date))
+  ret_dict["metadata"] = metadata
+  print(json.dumps(ret_dict))
+  return json.dumps(ret_dict)
 
 def haveAccess():
   printAssignments(todoList)
 # main
-if __name__ == '__main__':
 
+def main():
+  global todoList
   data = readDataFromFile()
   data = getCanvasAndUser(data)
   data = getCurrentCourses(data)
@@ -271,8 +293,10 @@ if __name__ == '__main__':
   assList.sort(key=getElementDueDate)
   todoList = assList
   #todoList = (getSorted(assList))
-  haveAccess()
+  #haveAccess()
   
   #printAssignments(assList)
   
 
+if __name__ == '__main__':
+  main()
