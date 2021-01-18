@@ -1,33 +1,13 @@
-<!doctype html>
-<html>
-  <head>
-    <link rel="stylesheet" href="style.css">
-
-       <!-- Resources: Chrome Extension API https://developer.chrome.com/docs/extensions/reference/ -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Canvas Reminders</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <body>
-    
-        <!---- Class selection format option 1 -->
-        <!---
-            <div id="heading">
-            <div class="nav">
-                <div class="dropdown">
-                    <button class="dropbtn">Classes
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-content" id="myDropdown"> 
-                        <a href="#Class1">Class1</a>
-                        <a href="#Class2">Class2</a>
-                        <a href="#Class3">Class3</a>
-                        <a href="#Class4">Class4</a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        -->
-        
-        <!---- Class selection format option 2 -->
         <div id="heading">
             <div class="nav">
                 <div class="dropdown">
@@ -49,9 +29,9 @@
             </div>
         </div>
 
-      <div style = "position: absolute; right:8px; top:2px;">
-        <div id = "heading">
-            <div class = "nav">
+        <div style = "position: absolute; right:8px; top:2px;">
+            <div id = "heading">
+                <div class = "nav">
                     <div class="dropdown">
                         <button class="dropbtn">Alert Options
                         <i class="fa fa-caret-down"></i>
@@ -75,24 +55,11 @@
         <div id="myDIV" class="header">
             <h2 style="margin:3px">Canvas Assignments</h2>
             <input type="text" id="myInput" placeholder="">
-            <span onclick="newElement()" class="addBtn">Find</span>
-          </div>
-          
-          <nav>
-            <ul>
-                <li>Assignment 1</li>
-                <li>Assignment 2</li>
-                <li>Assignment 3</li>
-                <li>Assignment 4</li>
-                <li>Assignment 5</li>
-                <li>Assignment 6</li>
-                <li>Assignment 7</li>
-                <li>Assignment 8</li>
-                <li>Assignment 9</li>
-                <li>Assignment 10</li>
-            </ul>
-          </nav>
-    </body> 
-    <script src="script.js"></script>
-
+            <span id="myButton" class="addBtn">Find</span>
+            <script src="./script.js"></script>
+        </div>
+        
+        <div id="dvCSV">
+        </div>
+    </body>
 </html>
