@@ -33,3 +33,6 @@ At the top right, enable Developer Mode
 Drag src/ folder to the screen
 
 Your extension is uploaded! View it under the list at the top right.
+
+## To do:
+Prove that we can send multiple arguments, somehow
