@@ -3,7 +3,7 @@
     "version": "1.0",
     "description": "Retrieves data from Canvas to remind students about",
     "permissions": ["activeTab", "declarativeContent", "storage"],
-    "content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
+    "content_security_policy":"script-src 'self' https://ajax.googleapis.com; object-src 'self'",
     "background": {
       "scripts": ["background.js"],
       "persistent": false

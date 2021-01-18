@@ -3,13 +3,67 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+        <title>Canvas Reminders</title>
         <script src="./script.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     </head>
     <body>
         <input id="user-input" type="text" />
         <button onclick="clicked()">click me!</button>
         <div id="display"></div>
 
+        <div id="heading">
+            <div class="nav">
+                <div class="dropdown">
+                    <button class="dropbtn">Classes
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content" id="myDropdown"> 
+                        <select name = "courses" id = "classes">
+                            <option value = "c0"><a href="#ClassAll">All Classes</a></option>
+                            <option value = "c1"><a href="#Class1">Class 1</a></option>
+                            <option value = "c2"><a href="#Class2">Class 2</a></option>
+                            <option value = "c3"><a href="#Class3">Class 3</a></option>
+                            <option value = "c4"><a href="#Class4">Class 4</a></option>
+
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div style = "position: absolute; right:8px; top:2px;">
+            <div id = "heading">
+                <div class = "nav">
+                    <div class="dropdown">
+                        <button class="dropbtn">Alert Options
+                        <i class="fa fa-caret-down"></i>
+                        </button>
+                        
+                        <div class="dropdown-content" id="myDropdown"> 
+                            <select name="reminds" id="times">
+                                <option value="ten">10 min before</option>
+                                <option value="thirty">30 min before</option>
+                                <option value="hour">1 hour before</option>
+                                <option value="twoh">2 hours before</option>
+                                <option value="oneday">1 day before</option>
+                                <option value="twoday">2 days before</option>
+                            </select>
+                        </div>
+                    </div>  
+                </div> 
+            </div>
+        </div>
+
+        <div id="myDIV" class="header">
+            <h2 style="margin:3px">Canvas Assignments</h2>
+            <input type="text" id="myInput" placeholder="">
+            <span onclick="clicked()" class="addBtn">Find</span>
+        </div>
+        
+        <div id="dvCSV">
+        </div>
     </body>
 </html>

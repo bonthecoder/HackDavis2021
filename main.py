@@ -42,7 +42,7 @@ class Assignment:
 def readDataFromFile():
   defaultFileName = "reminders_passwords.txt"
   print("\nDefault file is", defaultFileName)
-  userFile = input("Press enter to read data from default file, or paste your own filename: ")
+  userFile = "" # input("Press enter to read data from default file, or paste your own filename: ")
   if userFile != "":
     # the user entered a file, so we're temporarily changing the default filename
     defaultFileName = userFile
@@ -237,12 +237,11 @@ def findAssignmentByName(assignments, find):
   
 @app.route('/app')
 def returnAssignments():
-  print("get fucked, in the future")
   main()
   global todoList
   now = datetime.now().astimezone(tz=None)
-  #time = request.args.get('input1')
-  time = "1 Week"
+  time = request.args.get('input1')
+  # time = "1 Week"
   if time == "1 Day":
     cutoff = now + timedelta(days=1)
   elif time == "2 Days":
